@@ -14,18 +14,19 @@ module.exports = {
 jest.setTimeout(30000);
 
 const fileArray = [reallyBig, litanyPath, sherlockPath, prideAndPrejudicePath];
+const emptyArray = [];
 
 describe('#reader.js', () => {
   test('The finalArray should return characters from each .txt file in order', (done) => {
-    return fileReader.readFiles(fileArray, (data) => {
+    return fileReader.readFiles(fileArray, (error, data) => {
       expect(data).toEqual(['Reall', 'I mus', 'Proje', 'The P']);
       done();
     });
   });
-  // test('The finalArray null if there is no data', (done) => {
-  //     return fileReader.readFiles(fileArray, (data) => {
-  //         expect(data).toEqual(['Reall', 'I mus', 'Proje', 'The P']);
-  //         done();
-  //     });
-  // });
+  test('The finalArray null if there is no data', (done) => {
+    return fileReader.readFiles(emptyArray, (error, data) => {
+      expect(data).toEqual(null);
+      done();
+    });
+  });
 });
